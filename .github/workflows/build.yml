@@ -1,0 +1,33 @@
+name: Build DLX Binary
+
+on:
+  push:
+    branches: [ main, master ]  # 当你提交代码时自动触发
+  workflow_dispatch:            # 允许在 GitHub 页面上手动点击按钮触发
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Set up Go
+      uses: actions/setup-go@v5
+      with:
+        go-version: '1.22'
+
+    - name: Build AMD64 Binary
+      run: |
+        # 编译适合 64 位 x86 PC 的二进制文件
+        GOOS=linux GOARCH=amd64 go build -ldflags="-s -w" -o dlx_linux_amd64 main.go
+        GOOS=windows GOARCH=amd64 go build -ldflags="-s -w" -o dlx_windows_amd64.exe main.go
+
+    - name: Upload Artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: dlx-binaries
+        path: |
+          dlx_linux_amd64
+          dlx_windows_amd64.exe
