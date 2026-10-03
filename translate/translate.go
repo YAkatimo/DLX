@@ -74,7 +74,7 @@ const (
 	oneshotProEndpoint  = "https://oneshot-pro.www.deepl.com/v1/translate"
 
 	// Pinned to DeepL iOS IPA (CFBundleShortVersionString / CFBundleVersion).
-	iosAppVersion = "26.42"
+	iosAppVersion = "26.52"
 	iosAppBuild   = "5443737"
 
 	// Reported OS version for app_information.os_version + x-app-os-version.
